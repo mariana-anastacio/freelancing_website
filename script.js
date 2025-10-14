@@ -100,6 +100,18 @@ window.addEventListener('scroll', () => {
         videoContainer.classList.remove('scrolled');
     }
     
+    // Check if navbar is over services section (light background)
+    const servicesSection = document.querySelector('.services-section');
+    const navbarRect = navbar.getBoundingClientRect();
+    const serviceRect = servicesSection.getBoundingClientRect();
+    
+    // If navbar overlaps with services section, invert colors
+    if (navbarRect.bottom > serviceRect.top && navbarRect.top < serviceRect.bottom) {
+        navbar.classList.add('inverted');
+    } else {
+        navbar.classList.remove('inverted');
+    }
+    
     // Rotate icon based on scroll position
     const rotatingIcon = document.querySelector('.rotating-icon');
     if (rotatingIcon) {
@@ -138,7 +150,23 @@ window.addEventListener('load', () => {
     }
 });
 
-// Hero text animation on load
+// Intersection Observer for intro text animation
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            console.log('Intro text is in viewport');
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+// Hero text animation on load (only hero text, not intro)
 document.addEventListener('DOMContentLoaded', () => {
     const heroText = document.querySelector('.hero-text');
     if (heroText) {
@@ -149,50 +177,21 @@ document.addEventListener('DOMContentLoaded', () => {
             heroText.classList.add('visible');
         }
     }
-    
-    const introText = document.querySelector('.intro-text');
-    if (introText) {
-        const rect = introText.getBoundingClientRect();
-        const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
-        
-        if (isInViewport && !introText.classList.contains('visible')) {
-            introText.classList.add('visible');
-        }
-    }
-    
-    animateServiceItems();
 });
 
-// Scroll animation checker
-function checkAnimations() {
-    const heroText = document.querySelector('.hero-text');
-    if (heroText) {
-        const rect = heroText.getBoundingClientRect();
-        const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
-        
-        if (isInViewport && !heroText.classList.contains('visible')) {
-            heroText.classList.add('visible');
-        }
-    }
-    
+// Observe intro text separately - only trigger on scroll/viewport
+document.addEventListener('DOMContentLoaded', () => {
     const introText = document.querySelector('.intro-text');
     if (introText) {
-        const rect = introText.getBoundingClientRect();
-        const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
-        
-        if (isInViewport && !introText.classList.contains('visible')) {
-            introText.classList.add('visible');
-        }
+        observer.observe(introText);
     }
-}
-
-window.addEventListener('scroll', checkAnimations, { passive: true });
+});
 
 // Scroll button
 const scrollBtn = document.getElementById('scrollBtn');
 if (scrollBtn) {
     scrollBtn.addEventListener('click', () => {
-        const projectTable = document.getElementById('project-table');
+        const projectTable = document.getElementById('intro-section');
         if (projectTable) {
             projectTable.scrollIntoView({ 
                 behavior: 'smooth',
@@ -201,6 +200,56 @@ if (scrollBtn) {
         }
     });
 }
+
+// Evasive button movement
+document.querySelectorAll('.services-list button:not([style*="visibility: hidden"])').forEach(button => {
+    const maxMove = 150; // Movement distance
+    const speed = 0.15; // Matches CSS transition duration
+    const triggerDistance = 100; // Trigger zone for reaction
+    let animationFrameId = null;
+
+    // Function to move button away from cursor
+    function moveButtonAway(event) {
+        const rect = button.getBoundingClientRect();
+        const buttonCenterX = rect.left + rect.width / 2;
+        const buttonCenterY = rect.top + rect.height / 2;
+        const mouseX = event.clientX;
+        const mouseY = event.clientY;
+
+        // Calculate distance between cursor and button center
+        const dx = mouseX - buttonCenterX;
+        const dy = mouseY - buttonCenterY;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        // Move button if cursor is within trigger distance
+        if (distance < triggerDistance) {
+            const angle = Math.atan2(dy, dx); // Direction away from cursor
+            const moveX = -Math.cos(angle) * maxMove * (1.5 - distance / triggerDistance);
+            const moveY = -Math.sin(angle) * maxMove * (1.5 - distance / triggerDistance);
+
+            // Constrain movement within container
+            const container = button.closest('.services-list').getBoundingClientRect();
+            const newX = Math.max(-container.width / 2, Math.min(container.width / 2, moveX));
+            const newY = Math.max(-container.height / 2, Math.min(container.height / 2, moveY));
+
+            button.style.transform = `translate(${newX}px, ${newY}px)`;
+        } else {
+            // Reset position when cursor is far
+            button.style.transform = 'translate(0, 0)';
+        }
+    }
+
+    // Update on mousemove
+    document.addEventListener('mousemove', (event) => {
+        if (animationFrameId) cancelAnimationFrame(animationFrameId);
+        animationFrameId = requestAnimationFrame(() => moveButtonAway(event));
+    });
+
+    // Reset position when cursor leaves button
+    button.addEventListener('mouseleave', () => {
+        button.style.transform = 'translate(0, 0)';
+    });
+});
 
 // Scroll to selected works
 const projectLink = document.querySelector('a[href="#project-table"]');
@@ -243,8 +292,3 @@ document.querySelectorAll('.project-row').forEach((row) => {
         }
     });
 });
-
-// Service items animation (placeholder)
-function animateServiceItems() {
-    // Add your service items animation logic here
-}

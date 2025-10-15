@@ -79,7 +79,7 @@ video.addEventListener('pause', () => {
     }
 });
 
-// Scroll event listener for video and navbar
+// Scroll event listener for video, navbar, and rotations
 window.addEventListener('scroll', () => {
     const rect = videoContainer.getBoundingClientRect();
     const isInViewport = !(rect.bottom < 0 || rect.top > window.innerHeight);
@@ -105,18 +105,24 @@ window.addEventListener('scroll', () => {
     const navbarRect = navbar.getBoundingClientRect();
     const serviceRect = servicesSection.getBoundingClientRect();
     
-    // If navbar overlaps with services section, invert colors
     if (navbarRect.bottom > serviceRect.top && navbarRect.top < serviceRect.bottom) {
         navbar.classList.add('inverted');
     } else {
         navbar.classList.remove('inverted');
     }
     
-    // Rotate icon based on scroll position
+    // Rotate icon based on scroll position (for .rotating-icon)
     const rotatingIcon = document.querySelector('.rotating-icon');
     if (rotatingIcon) {
         const scrollAmount = window.scrollY;
         rotatingIcon.style.transform = `rotate(${scrollAmount / 3}deg)`;
+    }
+
+    // Rotate wheel1 based on scroll position
+    const wheel1 = document.querySelector('.services-section h2 img');
+    if (wheel1) {
+        const scrollAmount = window.scrollY;
+        wheel1.style.transform = `rotate(${scrollAmount / 3}deg)`;
     }
 }, { passive: true });
 
@@ -187,6 +193,91 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// ========== SERVICES SECTION ANIMATIONS ==========
+
+// Animate h2 heading letter by letter
+function animateHeading() {
+    const heading = document.querySelector('.services-section h2');
+    if (!heading || heading.classList.contains('animated')) return;
+
+    // Store the image element
+    const img = heading.querySelector('img');
+    
+    // Get text content (without the image)
+    const textNode = Array.from(heading.childNodes).find(node => node.nodeType === 3);
+    const text = textNode ? textNode.textContent.trim() : 'SERVICES';
+    
+    // Clear the heading
+    heading.innerHTML = '';
+    heading.classList.add('animated');
+    
+    // Create spans for each letter
+    text.split('').forEach((letter, index) => {
+        const span = document.createElement('span');
+        span.textContent = letter;
+        span.style.opacity = '0';
+        span.style.display = 'inline-block';
+        span.style.animation = `fadeInLetter 0.1s ease forwards`;
+        span.style.animationDelay = `${index * 0.05}s`;
+        heading.appendChild(span);
+    });
+    
+    // Re-add the image with animation
+    if (img) {
+        img.style.opacity = '0';
+        img.style.animation = `fadeInImage 0.4s ease forwards`;
+        img.style.animationDelay = `${text.length * 0.05 + 0.1}s`;
+        heading.appendChild(img);
+        
+        // Remove animation styles after animation completes
+        const delay = (text.length * 0.05 + 0.1) * 1000;
+        const duration = 400;
+        setTimeout(() => {
+            img.style.animation = 'none';
+            img.style.opacity = '1';
+        }, delay + duration + 50);
+    }
+}
+
+// Animate buttons pop-in effect
+function animateServiceButtons() {
+    const buttons = document.querySelectorAll('.services-list button');
+    if (buttons.length === 0 || buttons[0].classList.contains('animated')) return;
+
+    buttons.forEach((button, index) => {
+        if (button.style.visibility !== 'hidden') {
+            button.classList.add('animated');
+            button.style.opacity = '0';
+            button.style.transform = 'scale(0.5)';
+            button.style.animation = `popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards`;
+            button.style.animationDelay = `${index * 0.1}s`;
+        }
+    });
+}
+
+// Intersection Observer for services section
+const servicesObserverOptions = {
+    threshold: 0.3,
+    rootMargin: '0px'
+};
+
+const servicesObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            animateHeading();
+            animateServiceButtons();
+            servicesObserver.unobserve(entry.target);
+        }
+    });
+}, servicesObserverOptions);
+
+document.addEventListener('DOMContentLoaded', () => {
+    const servicesSection = document.querySelector('.services-section');
+    if (servicesSection) {
+        servicesObserver.observe(servicesSection);
+    }
+});
+
 // Scroll button
 const scrollBtn = document.getElementById('scrollBtn');
 if (scrollBtn) {
@@ -201,55 +292,88 @@ if (scrollBtn) {
     });
 }
 
-// Evasive button movement
-document.querySelectorAll('.services-list button:not([style*="visibility: hidden"])').forEach(button => {
-    const maxMove = 150; // Movement distance
-    const speed = 0.15; // Matches CSS transition duration
-    const triggerDistance = 100; // Trigger zone for reaction
-    let animationFrameId = null;
+// ========== EVASIVE BUTTON MOVEMENT ==========
+function setupEvasiveButtons() {
+    const buttons = document.querySelectorAll('.services-list button');
+    
+    buttons.forEach(button => {
+        // Clear animation styles that might be interfering
+        button.style.animation = 'none';
+        button.style.opacity = '1';
+        button.style.transform = 'scale(1)';
+        button.style.transition = 'transform 0.2s ease-out';
+        
+        const maxMove = 130;
+        const triggerDistance = 140;
+        let lastX = 0;
+        let lastY = 0;
 
-    // Function to move button away from cursor
-    function moveButtonAway(event) {
-        const rect = button.getBoundingClientRect();
-        const buttonCenterX = rect.left + rect.width / 2;
-        const buttonCenterY = rect.top + rect.height / 2;
-        const mouseX = event.clientX;
-        const mouseY = event.clientY;
+        function moveButtonAway(event) {
+            const rect = button.getBoundingClientRect();
+            const buttonCenterX = rect.left + rect.width / 2;
+            const buttonCenterY = rect.top + rect.height / 2;
+            const mouseX = event.clientX;
+            const mouseY = event.clientY;
 
-        // Calculate distance between cursor and button center
-        const dx = mouseX - buttonCenterX;
-        const dy = mouseY - buttonCenterY;
-        const distance = Math.sqrt(dx * dx + dy * dy);
+            const dx = mouseX - buttonCenterX;
+            const dy = mouseY - buttonCenterY;
+            const distance = Math.sqrt(dx * dx + dy * dy);
 
-        // Move button if cursor is within trigger distance
-        if (distance < triggerDistance) {
-            const angle = Math.atan2(dy, dx); // Direction away from cursor
-            const moveX = -Math.cos(angle) * maxMove * (1.5 - distance / triggerDistance);
-            const moveY = -Math.sin(angle) * maxMove * (1.5 - distance / triggerDistance);
+            let newX = 0;
+            let newY = 0;
 
-            // Constrain movement within container
-            const container = button.closest('.services-list').getBoundingClientRect();
-            const newX = Math.max(-container.width / 2, Math.min(container.width / 2, moveX));
-            const newY = Math.max(-container.height / 2, Math.min(container.height / 2, moveY));
+            if (distance < triggerDistance) {
+                const angle = Math.atan2(dy, dx);
+                const strength = 1 - distance / triggerDistance;
+                newX = -Math.cos(angle) * maxMove * strength;
+                newY = -Math.sin(angle) * maxMove * strength;
+            }
 
-            button.style.transform = `translate(${newX}px, ${newY}px)`;
-        } else {
-            // Reset position when cursor is far
-            button.style.transform = 'translate(0, 0)';
+            // Only update if movement is significant (reduce jitter)
+            if (Math.abs(newX - lastX) > 2 || Math.abs(newY - lastY) > 2) {
+                button.style.transform = `translate(${newX}px, ${newY}px)`;
+                lastX = newX;
+                lastY = newY;
+            }
         }
+
+        document.addEventListener('mousemove', moveButtonAway, { passive: true });
+
+        button.addEventListener('mouseleave', () => {
+            button.style.transform = 'translate(0, 0)';
+            lastX = 0;
+            lastY = 0;
+        });
+    });
+}
+
+// Call this after services animations are done
+document.addEventListener('DOMContentLoaded', () => {
+    const servicesSection = document.querySelector('.services-section');
+    if (servicesSection) {
+        // Observe services section - wait until it's fully in viewport before triggering animations
+        const tempObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Trigger animations when fully visible
+                    animateHeading();
+                    animateServiceButtons();
+                    
+                    // Wait for animations to complete before setting up hover
+                    setTimeout(() => {
+                        setupEvasiveButtons();
+                    }, 1000);
+                    tempObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 1 }); // Changed from 0.3 to 1 - waits for entire section to be visible
+        
+        tempObserver.observe(servicesSection);
     }
-
-    // Update on mousemove
-    document.addEventListener('mousemove', (event) => {
-        if (animationFrameId) cancelAnimationFrame(animationFrameId);
-        animationFrameId = requestAnimationFrame(() => moveButtonAway(event));
-    });
-
-    // Reset position when cursor leaves button
-    button.addEventListener('mouseleave', () => {
-        button.style.transform = 'translate(0, 0)';
-    });
 });
+
+// Remove the old servicesObserver that was auto-triggering animations
+// The animations are now called above when threshold is 1 (fully visible)
 
 // Scroll to selected works
 const projectLink = document.querySelector('a[href="#project-table"]');
@@ -274,17 +398,14 @@ function handleProjectClick(projectName) {
 document.querySelectorAll('.project-row').forEach((row) => {
     row.setAttribute('tabindex', '0');
     
-    // Handle click for desktop and touch for mobile
     row.addEventListener('click', (e) => {
         const projectName = row.querySelector('.project-name').textContent;
         handleProjectClick(projectName);
-        // Toggle expanded state for mobile
         if (window.innerWidth <= 430) {
             row.classList.toggle('expanded');
         }
     });
 
-    // Handle keyboard accessibility
     row.addEventListener('keypress', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();

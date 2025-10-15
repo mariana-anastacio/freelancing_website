@@ -10,6 +10,10 @@ body {
     overflow-x: hidden;
 }
 
+html {
+    overflow-x: hidden;
+}
+
 /* Navbar styles */
 .navbar {
     position: fixed;
@@ -223,7 +227,7 @@ video {
     font-size: 90px;
     color: #ffffff;
     text-align: left;
-    margin-top: 220px;
+    margin-top: 270px;
     margin-bottom: -30px;
 }
 
@@ -388,18 +392,30 @@ video {
     font-family: "Clash Display", sans-serif;
     font-weight: 420;
     color: black;
-    margin-left: 30px;
-    margin-top: 15px;
+    margin-left: 35px;
+    margin-top: 12px;
     margin-bottom: 20px;
     position: relative;
+    height: 160px;
+    min-height: 160px;
+    opacity: 0;
+    transition: none;
+}
+
+.services-section h2.animated {
+    opacity: 1;
+}
+
+.services-section h2 span {
+    display: inline-block;
 }
 
 .services-section h2 img {
     width: 30px;
     height: 30px;
     margin-left: 20px;
-    margin-bottom: 90px;
-    animation: rotate 2s linear infinite;
+    margin-bottom: 80px;
+    display: inline-block;
 }
 
 .services-list {
@@ -421,9 +437,9 @@ video {
     font-size: 30px;
     font-weight: 400;
     white-space: nowrap;
-    transition: transform 0.15s ease;
     cursor: default;
     height: fit-content;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 /* Position each button individually */
@@ -457,9 +473,41 @@ video {
     top: 60%;
 }
 
-@keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+/* Animation keyframes for services */
+@keyframes fadeInLetter {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInImage {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes popIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    75% {
+        transform: scale(1.1);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 /* Container for second row (Service 4 and Service 5) */
@@ -698,7 +746,7 @@ video {
     .navbar {
         flex-direction: column;
         align-items: center;
-        padding: 10px 5px;
+        padding: 25px 5px;
     }
 
     .logo {
@@ -758,8 +806,8 @@ video {
 
     /* Hero Section */
     .hero {
-        padding: 40px;
-        top: 6vh;
+        padding: 30px;
+        top: 10vh;
     }
 
     .hero-content {
@@ -799,19 +847,47 @@ video {
 
     .intro-container {
         flex-direction: column;
-        gap: 20px;
         padding-right: 0;
+        margin-bottom: 20px;
     }
 
     .intro-text {
         font-size: 16px;
         text-align: left;
+        font-style: lighter;
     }
 
     .intro-icon-wrapper {
         position: static;
-        width: 150px;
-        height: 150px;
+        align-items: right;
+        margin-top: -120px;
+        margin-right: -360px;
+        width: 200px;
+        height: 200px;
+    }
+
+    /* Services Section */
+    .services-section {
+        height: 50vh;
+    }
+
+    .services-section h2 {
+        font-size: 60px;
+        font-weight: 420;
+        text-align: left;
+        margin-bottom: -100px;
+    }
+
+    .services-section h2 img {
+        height: 18px;
+        width: 18px;
+        margin-bottom: 25px;
+        margin-left: 5px;
+    }
+
+    .services-list button {
+        font-size: 15px;
+        font-weight: 300;
     }
 
     /* Project Table */

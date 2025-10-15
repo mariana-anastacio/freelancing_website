@@ -743,6 +743,11 @@ video {
 /* Media Queries for iPhone Sizes (up to 430px) */
 @media screen and (max-width: 430px) {
     /* Navbar */
+    .body {
+        background: url('ServicesSection_background.png') no-repeat;
+        background-attachment: fixed;
+        background-size: 100vw;
+    }
     .navbar {
         flex-direction: column;
         align-items: center;

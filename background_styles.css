@@ -1,0 +1,567 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: rgb(169, 15, 20);
+    overflow-x: hidden;
+}
+
+/* Navbar styles */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: none;
+    z-index: 30;
+    box-sizing: border-box;
+}
+
+.navbar.visible {
+    opacity: 1;
+}
+
+.logo {
+    width: 75px;
+    height: auto;
+    cursor: pointer;
+    margin-left: 20px;
+    z-index: 10;
+    opacity: 1;
+}
+
+.nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-end;
+}
+
+.link-row {
+    display: flex;
+    gap: 4px;
+}
+
+.nav-links a {
+    color: rgb(155, 32, 36);
+    text-decoration: none;
+    font-family: "aktiv-grotesk";
+    font-size: 12.4px;
+    font-weight: normal;
+    padding: 4px 9px;
+    background-color:rgb(255, 238, 199, 0.8);
+    border: 1.2px solid rgb(155, 32, 36);
+    border-radius: 5px;
+    display: inline-block;
+    text-align: center;
+    text-transform: lowercase;
+    
+}
+
+.nav-links a:hover {
+    transform: scale(1.05);
+    background-color: rgb(155, 32, 36);
+    color: rgb(255, 238, 199);
+}
+
+/* Hero section */
+.hero {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    padding: 100px 20px 50px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: visible;
+    z-index: 12;
+    background-color: rgb(255, 238, 199);
+}
+
+.hero-content {
+    position: relative;
+    text-align: center;
+    max-width: 800px;
+    z-index: 1;
+}
+
+.hero-text {
+    margin-bottom: 50px;
+    line-height: 0.3;
+}
+
+.intro-text1 {
+    margin-top: 170px;
+    font-family: "Clash Display", sans-serif;
+    font-weight: 380;
+    font-size: 22px;
+    color: rgb(155, 32, 36);
+    text-align: left;
+    margin-bottom: 0px;
+}
+
+.name-and-intro {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.name {
+    font-family: "Amandine", sans-serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 70px;
+    color: rgb(155, 32, 36);
+}
+
+.intro-text2 {
+    font-family: "Clash Display", sans-serif;
+    font-weight: 380;
+    font-size: 22px;
+    color: rgb(155, 32, 36);
+    margin-top: 60px;
+}
+
+.title {
+    font-family: "Paris Forbel", sans-serif;
+    font-weight: 380;
+    font-size: 90px;
+    color: rgb(155, 32, 36);
+    text-align: left;
+    margin-top: 35px;
+}
+
+/* Text Animation */
+.intro-text1,
+.name,
+.intro-text2,
+.title,
+.specialty-text {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.hero-text.visible .intro-text1 {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hero-text.visible .name {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hero-text.visible .intro-text2 {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hero-text.visible .title {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hero-text.visible .specialty-text {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Staggered delays */
+.hero-text.visible .intro-text1 {
+    transition-delay: 0.2s;
+}
+
+.hero-text.visible .name {
+    transition-delay: 0.4s;
+}
+
+.hero-text.visible .intro-text2 {
+    transition-delay: 0.4s;
+}
+
+.hero-text.visible .title {
+    transition-delay: 0.6s;
+}
+
+.hero-text.visible .specialty-text {
+    transition-delay: 0.8s;
+}
+
+.specialty-text {
+    font-family: "Clash Display", sans-serif;
+    font-weight: 380;
+    font-size: 22px;
+    color: rgb(155, 32, 36);
+    text-align: right;
+    margin-top: -15px;
+}
+
+/* Stickers section */
+.stickers-container {
+    position: relative;
+    width: 120%;
+    max-width: none;
+    margin-left: -10%;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    overflow: visible;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.stickers-container.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 1s;
+}
+
+.sticker1,
+.sticker3,
+.sticker4 {
+    position: absolute;
+    transition: transform 0.1s ease;
+}
+
+.sticker1 {
+    left: -52%;
+    top: -360px;
+    width: 350px;
+    z-index: 2;
+}
+
+.sticker3 {
+    left: 85%;
+    top: 1%;
+    width: 350px;
+    z-index: 3;
+}
+
+.sticker4 {
+    left: 110%;
+    top: -70%;
+    width: 390px;
+    z-index: 2;
+}
+
+.sticker1:hover,
+.sticker3:hover,
+.sticker4:hover {
+    animation: shake 0.5s ease-in-out;
+}
+
+/* Shake animation */
+@keyframes shake {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(-5px, -5px) rotate(-5deg); }
+    50% { transform: translate(5px, 5px) rotate(5deg); }
+    75% { transform: translate(-5px, -5px) rotate(-5deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+/* Sticker2 and sticker-me styles */
+.sticker2-left {
+    position: absolute;
+    width: 200px;
+    left: 50px;
+    top: -10px;
+    rotate: 2deg;
+    transition: transform 0.3s ease;
+}
+
+.sticker2-right {
+    position: absolute;
+    width: 230px;
+    left: 180px;
+    top: 15px;
+    transition: transform 0.3s ease;
+}
+
+.sticker2-container {
+    position: absolute;
+    left: -10%;
+    top: 25px;
+    z-index: 1;
+}
+
+.sticker2-container:hover .sticker2-left {
+    transform: translateX(-50px);
+}
+
+.sticker2-container:hover .sticker2-right {
+    transform: translateX(99px);
+}
+
+.sticker-me {
+    position: relative;
+    left: -33%;
+    top: 45px;
+    width: 300px;
+    rotate: 2deg;
+}
+
+/* Background e Currently */
+.background-section {
+    margin-top: -20px;
+}
+
+.header {
+    text-align: center;
+    font-family: cofo-sans-pixel;
+    font-size: 52.5px;
+    color: rgb(255, 222, 155);
+    margin-top: 200px;
+    margin-bottom: 2px;
+}    
+
+.codify-text {
+    opacity: 0;
+}
+
+.codify-text.codified {
+    opacity: 1;
+}
+
+.background-text {
+    max-width: 68.5%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 95px;
+}
+
+.background-text p {
+    font-family: cofo-sans-pixel, sans-serif;
+    font-size: 25px;
+    line-height: 1.2;
+}
+
+.left {
+    text-align: left;
+}
+
+.right {
+    text-align: left;
+}
+
+.currently-text {
+    text-align: center;
+    width: 45%;
+    font-family: cubano;
+    font-size: 30px;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+.background-text p {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.background-text.visible .left {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.2s;
+}
+
+.background-text.visible .right {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.4s;
+}
+
+.currently-text {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.currently-text.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.6s;
+}
+
+/* Single PNG styling */
+.single-image {
+    display: block;
+    margin: 100px auto;
+    width: 450px;
+    height: auto;
+}
+
+/* Carousel styling */
+.carousel {
+    width: 100%;
+    overflow: hidden;
+    margin: 140px 0;
+    position: relative;
+    cursor: none;
+    margin-bottom: 200px;
+}
+
+.track {
+    display: flex;
+    width: max-content;
+    animation: slide 20s linear infinite;
+}
+
+.track img {
+    width: 50px;
+    height: auto;
+    flex-shrink: 0;
+    margin-right: 70px;
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* Cursor follower image */
+.cursor-follower {
+    position: fixed;
+    width: 500px;
+    height: auto;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0;
+    transform: translate(-50%, -80%);
+    transition: opacity 0.2s ease;
+}
+
+.cursor-follower.visible {
+    opacity: 1;
+}
+
+/* Services Section */
+.services-section {
+    position: relative;
+    width: 100%;
+    padding: 0px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.services-sticker {
+    position: absolute;
+    left: 13%;
+    top: -5%;
+    background-color: rgb(169, 15, 20);
+    color: rgb(255, 222, 155);
+    padding: 26px 42px;
+    transform: rotate(-9deg);
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.services-sticker.visible {
+    opacity: 1;
+}
+
+.services-sticker span {
+    font-family: "Rastefani", sans-serif;
+    font-size: 38px;
+    font-weight: 500;
+    line-height: 1.2;
+    margin-top: 10px;
+    display: block;
+    text-align: center;
+}
+
+.services-grid {
+    background-color: rgb(200, 200, 200);
+    background-image: 
+        linear-gradient(rgba(150, 150, 150, 1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(150, 150, 150, 1) 1px, transparent 1px);
+    background-size: 40px 40px;
+    padding: 62px 100px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    max-width: 950px;
+    width: 80%;
+    margin-bottom: -15px;
+}
+
+.service-item {
+    font-family: "Clash Display", sans-serif;
+    font-style: bold;
+    font-size: 32px;
+    color: rgb(20, 20, 20);
+    text-align: center;
+    margin: 30px 30px;
+    line-height: 2px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.3s ease, transform 0.3s ease, color 0.2s ease;
+}
+
+.service-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.service-item:last-child {
+    border-bottom: none;
+}
+
+/* Hover effect */
+.service-item {
+    cursor: default;
+}
+
+.service-item:hover {
+    transform: translateY(0) scale(1.05);
+    color: rgba(169, 15, 20);
+}
+
+/* Scrolling bar */
+.scrolling-bar {
+    position: relative;
+    left: 0;
+    width: 100%;
+    background-color: rgba(169, 15, 20);
+    padding: 15px 0;
+    overflow: hidden;
+    z-index: 100;
+}
+
+.scrolling-text {
+    display: flex;
+    white-space: nowrap;
+    animation: scroll-left 10s linear infinite;
+}
+
+.scrolling-text span {
+    font-family: kallisto, sans-serif;
+    font-size: 20px;
+    font-style: italic;
+    color: rgb(200, 200, 200);
+    padding: 0 8px;
+}
+
+@keyframes scroll-left {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}

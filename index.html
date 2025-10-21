@@ -6,10 +6,12 @@
     <title>Mariana Anastácio</title>
     <link rel="stylesheet" href="https://use.typekit.net/bpr0zwo.css">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style_emailme.css">
     <!-- Adicionando fontes via Google Fonts (substitua por links Typekit ou arquivos locais se necessário) -->
     <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@300&display=swap" rel="stylesheet"> <!-- Clash Display Variable Light -->
     <link href="https://fonts.googleapis.com/css2?family=Amandine:ital@1&display=swap" rel="stylesheet"> <!-- Amandine Light Italic -->
     <link href="https://fonts.googleapis.com/css2?family=Paris+Forbel&display=swap" rel="stylesheet"> <!-- Paris Forbel Regular -->
+    <link href="Rastefani-4nnWp.otf" rel="stylesheet"> <!-- Paris Forbel Regular -->
 </head>
 <body>
     <!-- Navbar -->
@@ -17,8 +19,8 @@
         <img src="WebLogo.png" alt="Mariana Anastácio Logo" class="logo" onclick="window.location.reload();">
         <div class="nav-links">
             <div class="link-row">
-                <a href="#project-table">selected works</a>
-                <a href="about.html">about me</a>
+                <a href="#sworks-section">selected works</a>
+                <a href="#about-section">about me</a>
             </div>
             <div class="link-row">
                 <a href="3dindesign.html">3d in design</a>
@@ -27,274 +29,407 @@
         </div>
     </nav>
 
-<!-- Video Section Wrapper -->
-<div class="video-wrapper">
-    <div class="video-container">
-        <video id="myVideo" loop playsinline>
-            <source src="IntroLogo.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <!-- Mute Button -->
-        <button id="muteBtn" class="mute-btn" aria-label="Toggle mute">
-            <svg class="sound-icon" viewBox="0 0 24 24" width="24" height="24" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <!-- Speaker icon (unmuted) -->
-                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                <path d="M15.54 8.46a6.5 6.5 0 0 1 0 9.07"></path>
-                <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
-            </svg>
-        </button>
-    </div>
-    <!-- Visualizer -->
-    <div class="visualizer" id="visualizer"></div>
-</div>
-
-<!-- Hero Section -->
-<section class="hero">
-    <div class="hero-content">
-        <div class="hero-text">
-            <!-- <p class="intro-text1">Hello! <br> I'm Mariana Anastácio</p> -->
-            <h2 class="title">3D Generalist</h2>
-            <p class="specialty-text">specializing in Product Animation and Visualization.</p>
-            <button class="scroll-btn" id="scrollBtn">
-                <svg class="arrow-icon" viewBox="0 0 24 24" width="24" height="24" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                    <polyline points="19 12 12 19 5 12"></polyline>
+    <!-- Video Section Wrapper -->
+    <div class="video-wrapper">
+        <div class="video-container">
+            <video id="myVideo" loop playsinline>
+                <source src="IntroLogo.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <!-- Mute Button -->
+            <button id="muteBtn" class="mute-btn" aria-label="Toggle mute">
+                <svg class="sound-icon" viewBox="0 0 24 24" width="24" height="24" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <!-- Speaker icon (unmuted) -->
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                    <path d="M15.54 8.46a6.5 6.5 0 0 1 0 9.07"></path>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
                 </svg>
             </button>
         </div>
+        <!-- Visualizer -->
+        <div class="visualizer" id="visualizer"></div>
     </div>
-</section>
 
-<!-- Intro Section -->
-<section class="intro-section" id="intro-section">
-    <div class="intro-container">
-        <div class="intro-text">
-            <p>I can help you bring your ideas to life with realistic (or not) 3D graphics. <br> If you need <strong>engaging 3D content for your brand or project,</strong> from 3D <br> Modeling & Animation to 3D Graphics & Illustration, I'd be happy to help!</p>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <!-- <p class="intro-text1">Hello! <br> I'm Mariana Anastácio</p> -->
+                <h2 class="title">3D Generalist</h2>
+                <p class="specialty-text">specializing in Product Animation and Biomedical Visualization.</p>
+                <button class="scroll-btn" id="scrollBtn">
+                    <svg class="arrow-icon" viewBox="0 0 24 24" width="24" height="24" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <polyline points="19 12 12 19 5 12"></polyline>
+                    </svg>
+                </button>
+            </div>
         </div>
-        <div class="intro-icon-wrapper">
-            <img src="StrokeIconRot.png" alt="Intro icon" class="rotating-icon">
+    </section>
+
+    <!-- Intro Section -->
+    <section class="intro-section" id="intro-section">
+        <div class="intro-container">
+            <div class="intro-text">
+                <p>I can help you bring your ideas to life with realistic (or not) 3D graphics. <br> If you need <strong>engaging 3D content for your brand or project,</strong> from 3D <br> Modeling & Animation to 3D Graphics & Illustration, I'd be happy to help!</p>
+            </div>
+            <div class="intro-icon-wrapper">
+                <img src="StrokeIconRot.png" alt="Intro icon" class="rotating-icon">
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Services Section -->
-<section class="services-section">
-    <h2>SERVICES<img src="wheel1.png" alt="Wheel Icon"></h2>
-    <div class="services-list">
-      <button>3D Modeling</button>
-      <button>3D Animation</button>
-      <button>Product Animation</button>
-      <button style="visibility: hidden;"></button> <!-- Invisible button to force row break -->
-    <div class="second-row">
-    <button>Dynamics Simulations</button>
-    <button>3D Illustration</button>
-    </div>
-    </div>
-</section>
+    <!-- Services Section -->
+    <section class="services-section">
+        <h2>SERVICES<img src="wheel1.png" alt="Wheel Icon"></h2>
+    <div class="cards-container">
+            <div class="card">
+                <h3 class="card-title">3D Modeling & Animation</h3>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat</p>
+            </div>
 
-<div class="project-table" id="project-table">
-    <!-- Header -->
-    <div class="table-header">
-        <div>Year</div>
-        <div>Project</div>
-        <div>Area</div>
-    </div>
+            <div class="card">
+                <h3 class="card-title">Product <br> Animation</h3>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat</p>
+            </div>
 
-    <!-- Project Rows -->
-    <div class="project-row" onclick="handleProjectClick('Sci-Fi Portal')">
-        <div class="year">2025</div>
-        <div class="project-name">Sci-Fi Portal</div>
-        <div class="tags">
-            <span class="tag">3D Modelling & Animation</span>
-        </div>
-        <div class="project-row-content">
-            <div class="year-column">
+            <div class="card">
+                <h3 class="card-title">3D Illustration & Graphic Design</h3>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat</p>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">Dynamics Simulations</h3>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat</p>
+            </div>
+    </div>
+    </section>
+
+    <!-- Selected Works -->
+    <section class="sworks-section" id="sworks-section">
+        <h2><span class="selected-text">SELECTED</span><br><span class="works-text">WORKS</span><img src="wheel2.png" alt="Wheel Icon"></h2>
+        <div class="project-table" id="project-table">
+            <!-- Header -->
+            <div class="table-header">
+                <div>Year</div>
+                <div>Project</div>
+                <div>Area</div>
+            </div>  
+
+            <!-- Project Rows -->
+            <div class="project-row" onclick="handleProjectClick('Sci-Fi Portal')">
                 <div class="year">2025</div>
-            </div>
-            <div class="main-content">
-                <div class="project-header">
-                    <div class="project-name">Sci-Fi Portal</div>
-                    <div class="tags">
-                        <span class="tag">3D Modelling & Animation</span>
+                <div class="project-name">Sci-Fi Portal</div>
+                <div class="tags">
+                    <span class="tag">3D Modelling & Animation</span>
+                </div>
+                <div class="project-row-content">
+                    <div class="year-column">
+                        <div class="year">2025</div>
+                    </div>
+                    <div class="main-content">
+                        <div class="project-header">
+                            <div class="project-name">Sci-Fi Portal</div>
+                            <div class="tags">
+                                <span class="tag">3D Modelling & Animation</span>
+                            </div>
+                        </div>
+                        <div class="project-details-wrapper">
+                            <div class="project-details-left">
+                                <div class="project-subtitle">TRAILER SNIPET FOR A SCI-FI MOVIE</div>
+                                <div class="project-description">
+                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
+                                </div>
+                                <div class="project-tools">
+                                    <span>Blender</span>
+                                    <span>Houdini FX</span>
+                                    <span>Adobe Premier Pro</span>
+                                </div>
+                            </div>
+                            <div class="project-details-right">
+                                <div class="project-image-container">
+                                    <img src="SciFi_portal.png" alt="Sci-Fi Portal" class="project-image">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="project-details-wrapper">
-                    <div class="project-details-left">
-                        <div class="project-subtitle">TRAILER SNIPET FOR A SCI-FI MOVIE</div>
-                        <div class="project-description">
-                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
-                        </div>
-                        <div class="project-tools">
-                            <span>Blender</span>
-                            <span>Houdini FX</span>
-                            <span>Adobe Premier Pro</span>
-                        </div>
-                    </div>
-                    <div class="project-details-right">
-                        <div class="project-image-container">
-                            <img src="SciFi_portal.png" alt="Sci-Fi Portal" class="project-image">
-                        </div>
-                    </div>
-                </div>
             </div>
-        </div>
-    </div>
 
-    <div class="project-row" onclick="handleProjectClick('OX-PY Keyboard')">
-        <div class="year">2025</div>
-        <div class="project-name">OX-PY Keyboard - Teenage Engenieering</div>
-        <div class="tags">
-            <span class="tag">Product Animation</span>
-            <span class="tag">3D Modelling & Animation</span>
-        </div>
-        <div class="project-row-content">
-            <div class="year-column">
+            <div class="project-row" onclick="handleProjectClick('OX-PY Keyboard')">
                 <div class="year">2025</div>
-            </div>
-            <div class="main-content">
-                <div class="project-header">
-                    <div class="project-name">OX-PY Keyboard - Teenage Engenieering</div>
-                    <div class="tags">
-                        <span class="tag">Product Animation</span>
-                        <span class="tag">3D Modelling & Animation</span>
+                <div class="project-name">OX-PY Keyboard - Teenage Engenieering</div>
+                <div class="tags">
+                    <span class="tag">Product Animation</span>
+                    <span class="tag">3D Modelling & Animation</span>
+                </div>
+                <div class="project-row-content">
+                    <div class="year-column">
+                        <div class="year">2025</div>
+                    </div>
+                    <div class="main-content">
+                        <div class="project-header">
+                            <div class="project-name">OX-PY Keyboard - Teenage Engenieering</div>
+                            <div class="tags">
+                                <span class="tag">Product Animation</span>
+                                <span class="tag">3D Modelling & Animation</span>
+                            </div>
+                        </div>
+                        <div class="project-details-wrapper">
+                            <div class="project-details-left">
+                                <div class="project-subtitle">PRODUCT SHOWCASE</div>
+                                <div class="project-description">
+                                    A detailed 3D product animation showcasing the innovative OX-PY keyboard design by Teenage Engineering. Features dynamic camera movements and material exploration.
+                                </div>
+                                <div class="project-tools">
+                                    <span>Blender</span>
+                                    <span>Adobe After Effects</span>
+                                </div>
+                            </div>
+                            <div class="project-details-right">
+                                <div class="project-image-container">
+                                    <img src="OPXY_Cover.jpeg" alt="OX-PY Keyboard" class="project-image">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="project-details-wrapper">
-                    <div class="project-details-left">
-                        <div class="project-subtitle">PRODUCT SHOWCASE</div>
-                        <div class="project-description">
-                            A detailed 3D product animation showcasing the innovative OX-PY keyboard design by Teenage Engineering. Features dynamic camera movements and material exploration.
-                        </div>
-                        <div class="project-tools">
-                            <span>Blender</span>
-                            <span>Adobe After Effects</span>
-                        </div>
-                    </div>
-                    <div class="project-details-right">
-                        <div class="project-image-container">
-                            <img src="OPXY_Cover.jpeg" alt="OX-PY Keyboard" class="project-image">
-                        </div>
-                    </div>
-                </div>
             </div>
-        </div>
-    </div>
 
-    <div class="project-row" onclick="handleProjectClick('Ondine Fashion')">
-        <div class="year">2025</div>
-        <div class="project-name">Ondine: Fashion Concept</div>
-        <div class="tags">
-            <span class="tag">3D Modelling</span>
-        </div>
-        <div class="project-row-content">
-            <div class="year-column">
+            <div class="project-row" onclick="handleProjectClick('Ondine Fashion')">
                 <div class="year">2025</div>
-            </div>
-            <div class="main-content">
-                <div class="project-header">
-                    <div class="project-name">Ondine: Fashion Concept</div>
-                    <div class="tags">
-                        <span class="tag">3D Modelling</span>
+                <div class="project-name">Ondine: Fashion Concept</div>
+                <div class="tags">
+                    <span class="tag">3D Modelling</span>
+                </div>
+                <div class="project-row-content">
+                    <div class="year-column">
+                        <div class="year">2025</div>
+                    </div>
+                    <div class="main-content">
+                        <div class="project-header">
+                            <div class="project-name">Ondine: Fashion Concept</div>
+                            <div class="tags">
+                                <span class="tag">3D Modelling</span>
+                            </div>
+                        </div>
+                        <div class="project-details-wrapper">
+                            <div class="project-details-left">
+                                <div class="project-subtitle">FASHION VISUALIZATION</div>
+                                <div class="project-description">
+                                    A conceptual fashion piece exploring fluid dynamics and organic forms in 3D space. Created for the Ondine collection.
+                                </div>
+                                <div class="project-tools">
+                                    <span>Blender</span>
+                                    <span>Marvelous Designer</span>
+                                </div>
+                            </div>
+                            <div class="project-details-right">
+                                <div class="project-image-container">
+                                    <img src="Ondine_Cover.jpg" alt="Ondine Fashion" class="project-image">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="project-details-wrapper">
-                    <div class="project-details-left">
-                        <div class="project-subtitle">FASHION VISUALIZATION</div>
-                        <div class="project-description">
-                            A conceptual fashion piece exploring fluid dynamics and organic forms in 3D space. Created for the Ondine collection.
-                        </div>
-                        <div class="project-tools">
-                            <span>Blender</span>
-                            <span>Marvelous Designer</span>
-                        </div>
-                    </div>
-                    <div class="project-details-right">
-                        <div class="project-image-container">
-                            <img src="Ondine_Cover.jpg" alt="Ondine Fashion" class="project-image">
-                        </div>
-                    </div>
-                </div>
             </div>
-        </div>
-    </div>
 
-    <div class="project-row" onclick="handleProjectClick('Tower Destruction')">
-        <div class="year">2025</div>
-        <div class="project-name">Tower Destruction</div>
-        <div class="tags">
-            <span class="tag">3D Procedural Modelling</span>
-            <span class="tag">Dynamics Simulations</span>
-        </div>
-        <div class="project-row-content">
-            <div class="year-column">
+            <div class="project-row" onclick="handleProjectClick('Tower Destruction')">
                 <div class="year">2025</div>
-            </div>
-            <div class="main-content">
-                <div class="project-header">
-                    <div class="project-name">Tower Destruction</div>
-                    <div class="tags">
-                        <span class="tag">3D Procedural Modelling</span>
-                        <span class="tag">Dynamics Simulations</span>
+                <div class="project-name">Tower Destruction</div>
+                <div class="tags">
+                    <span class="tag">3D Procedural Modeling</span>
+                    <span class="tag">Dynamics Simulations</span>
+                </div>
+                <div class="project-row-content">
+                    <div class="year-column">
+                        <div class="year">2025</div>
+                    </div>
+                    <div class="main-content">
+                        <div class="project-header">
+                            <div class="project-name">Tower Destruction</div>
+                            <div class="tags">
+                                <span class="tag">3D Procedural Modeling</span>
+                                <span class="tag">Dynamics Simulations</span>
+                            </div>
+                        </div>
+                        <div class="project-details-wrapper">
+                            <div class="project-details-left">
+                                <div class="project-subtitle">DESTRUCTION SIMULATION</div>
+                                <div class="project-description">
+                                    Advanced rigid body simulation showcasing procedural destruction of a tower structure with realistic debris physics and particle effects.
+                                </div>
+                                <div class="project-tools">
+                                    <span>Houdini FX</span>
+                                    <span>Blender</span>
+                                </div>
+                            </div>
+                            <div class="project-details-right">
+                                <div class="project-image-container">
+                                    <img src="" alt="Tower Destruction" class="project-image">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="project-details-wrapper">
-                    <div class="project-details-left">
-                        <div class="project-subtitle">DESTRUCTION SIMULATION</div>
-                        <div class="project-description">
-                            Advanced rigid body simulation showcasing procedural destruction of a tower structure with realistic debris physics and particle effects.
-                        </div>
-                        <div class="project-tools">
-                            <span>Houdini FX</span>
-                            <span>Blender</span>
-                        </div>
-                    </div>
-                    <div class="project-details-right">
-                        <div class="project-image-container">
-                            <img src="" alt="Tower Destruction" class="project-image">
-                        </div>
-                    </div>
-                </div>
             </div>
-        </div>
-    </div>
 
-    <div class="project-row" onclick="handleProjectClick('Descarnilados')">
-        <div class="year">2023</div>
-        <div class="project-name">Descarnilados - Short Story Animation</div>
-        <div class="tags">
-        </div>
-        <div class="project-row-content">
-            <div class="year-column">
+            <div class="project-row" onclick="handleProjectClick('Descarnilados')">
                 <div class="year">2023</div>
-            </div>
-            <div class="main-content">
-                <div class="project-header">
-                    <div class="project-name">Descarnilados - Short Story Animation</div>
+                <div class="project-name">Descarnilados - Short Story Animation</div>
                     <div class="tags">
+                        <span class="tag">3D Modeling</span>
+                        <span class="tag">3D Animation</span>
                     </div>
-                </div>
-                <div class="project-details-wrapper">
-                    <div class="project-details-left">
-                        <div class="project-subtitle">ANIMATED SHORT FILM</div>
-                        <div class="project-description">
-                            A narrative-driven animated short exploring themes of identity and transformation through stylized 3D animation.
-                        </div>
-                        <div class="project-tools">
-                            <span>Blender</span>
-                            <span>Adobe Premiere Pro</span>
-                        </div>
+                <div class="project-row-content">
+                    <div class="year-column">
+                        <div class="year">2023</div>
                     </div>
-                    <div class="project-details-right">
-                        <div class="project-image-container">
-                            <img src="1.jpg" alt="Descarnilados" class="project-image">
+                    <div class="main-content">
+                        <div class="project-header">
+                            <div class="project-name">Descarrilados - Short Story Animation</div>
+                            <div class="tags">
+                                <span class="tag">3D Modeling</span>
+                                <span class="tag">3D Animation</span>
+                            </div>
+                        </div>
+                        <div class="project-details-wrapper">
+                            <div class="project-details-left">
+                                <div class="project-subtitle">ANIMATED SHORT FILM</div>
+                                <div class="project-description">
+                                    A narrative-driven animated short exploring themes of identity and transformation through stylized 3D animation.
+                                </div>
+                                <div class="project-tools">
+                                    <span>Blender</span>
+                                    <span>Adobe Premiere Pro</span>
+                                </div>
+                            </div>
+                            <div class="project-details-right">
+                                <div class="project-image-container">
+                                    <img src="1.jpg" alt="Descarnilados" class="project-image">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </section>
 
-    <script src="script.js"></script>
+    <!-- About Me Section -->
+    <section class="about-section" id="about-section">
+        <div class="about-container">
+            <div class="about-left">
+                <div class="profile-wrapper">
+                    <img src="aboutMe_pfp.png" alt="Mariana Anastácio Profile" class="profile-image">
+                    <img src="aboutMe_2pfp.png" alt="Overlay" class="profile-overlay">
+                </div>
+            </div>
+            <div class="about-right">
+                <p class="greeting-text">* Hello! My name is</p>
+                <h2 class="name-text">Mariana Anastácio,</h2>
+                <p class="bio-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+                <div class="button-group">
+                    <button class="curriculum-btn">Curriculum</button>
+                    <button class="philosophy-btn" onclick="window.location.href='background.html'">Background & Work Philosophy</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- Horizontal Bar Caroussel-->
+    <div class="scrolling-bar">
+        <div class="scrolling-text">
+            <span>You've come this far. </span> 
+            <span> • </span>            
+            <span>Might as well leave a message!</span>
+            <span> • </span>
+            <span>It would be a pleasure to work with you.</span>
+            <span> • </span>
+            <span>You've come this far. </span> 
+            <span> • </span>            
+            <span>Might as well leave a message!</span>
+            <span> • </span>
+            <span>It would be a pleasure to work with you.</span>
+            <span> • </span>
+            <span>You've come this far. </span> 
+            <span> • </span>            
+            <span>Might as well leave a message!</span>
+            <span> • </span>
+            <span>It would be a pleasure to work with you.</span>
+            <span> • </span>
+            <span>You've come this far. </span> 
+            <span> • </span>            
+            <span>Might as well leave a message!</span>
+            <span> • </span>
+            <span>It would be a pleasure to work with you.</span>
+            <span> • </span>
+        </div>
+    </div>
+
+<!-- Let's Talk Section -->
+<section class="contact-section" id="contact-section">
+    <h2>LET'S TALK</h2>
+    <div class="contact-wrapper">
+        <div class="contact-card">
+            <form action="https://formspree.io/f/xvgogroa" method="POST" id="contact-form">
+                <!-- Dropdown Section -->
+                <div class="input-group">
+                    <label class="input-label" for="reason">I'm here for...*</label>
+                    <select id="reason" class="dropdown-field" name="reason" required>
+                        <option value="" disabled selected>Choose Something...</option>
+                        <option value="3d-model">A 3D Model of my designs / sketches (3D Modeling)</option>
+                        <option value="low-poly">A Low-Poly version of my model (3D Modeling)</option>
+                        <option value="animation">An animation of my 3D Model (3D Animation)</option>
+                        <option value="product-animation">An advertising for my project (Product Animation)</option>
+                        <option value="3d-illustration">Grahic Design but make it 3D (3D Illustration)</option>
+                        <option value="idea-illustration">My idea illustrated (3D Illustration)</option>
+                        <option value="dynamics">Some explosions and effects (Dynamics Simulations)</option>
+                        <option value="collaboration">Teaming Up! (Collaboration)</option>
+                        <option value="other">Something entirely different</option>
+                    </select>
+                </div>
+
+                <!-- Name and Email Row -->
+                <div class="input-row">
+                    <div class="input-group half-width">
+                        <label class="input-label" for="name">Your Name / Company *</label>
+                        <input type="text" id="name" class="input-field" name="name" placeholder="Your Name / Company" required />
+                    </div>
+                    <div class="input-group half-width">
+                        <label class="input-label" for="email">Your Email *</label>
+                        <input type="email" id="email" class="input-field" name="email" placeholder="Your Email" required />
+                    </div>
+                </div>
+
+                <!-- Message Section -->
+                <div class="input-group">
+                    <label class="input-label" for="message">What should I know?</label>
+                    <textarea id="message" class="textarea-field" name="message" placeholder="Tell me more..." required></textarea>
+                </div>
+
+                <button type="submit" id="send-button">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="alternate-contact">
+        <p>Not ready to fill this out yet? Just say hey:</p>
+        <p class="contact-email">mariana.worktogether@gmail.com</p>
+    </div>
+
+    <div class="socials">
+        <a href="https://www.linkedin.com/in/mariana-anastácio-781811225/" target="_blank" rel="noopener noreferrer">
+            <img src="linkedin-icon.png" alt="LinkedIn">
+        </a>
+        <a href="https://www.behance.net/mianaaa" target="_blank" rel="noopener noreferrer">
+            <img src="behance-icon.png" alt="Behance">
+        </a>
+    </div>
+</section>
+
+<script src="emailme.js"></script>
+<script src="emailme2.js"></script>
+<script src="script.js"></script>
 </body>
 </html>

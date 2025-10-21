@@ -102,15 +102,20 @@ window.addEventListener('scroll', () => {
     
     // Check if navbar is over services section (light background)
     const servicesSection = document.querySelector('.services-section');
+    const aboutSection = document.querySelector('.about-section');
     const navbarRect = navbar.getBoundingClientRect();
     const serviceRect = servicesSection.getBoundingClientRect();
-    
-    if (navbarRect.bottom > serviceRect.top && navbarRect.top < serviceRect.bottom) {
+    const aboutRect = aboutSection.getBoundingClientRect();
+
+    // Check if navbar is over EITHER services OR about section
+    if (
+        (navbarRect.bottom > aboutRect.top && navbarRect.top < aboutRect.bottom)) {
         navbar.classList.add('inverted');
     } else {
         navbar.classList.remove('inverted');
     }
     
+
     // Rotate icon based on scroll position (for .rotating-icon)
     const rotatingIcon = document.querySelector('.rotating-icon');
     if (rotatingIcon) {
@@ -118,12 +123,14 @@ window.addEventListener('scroll', () => {
         rotatingIcon.style.transform = `rotate(${scrollAmount / 3}deg)`;
     }
 
-    // Rotate wheel1 based on scroll position
-    const wheel1 = document.querySelector('.services-section h2 img');
-    if (wheel1) {
-        const scrollAmount = window.scrollY;
-        wheel1.style.transform = `rotate(${scrollAmount / 3}deg)`;
-    }
+    // Rotate wheel1 based on scroll position (for both services and selected works)
+    const wheels = document.querySelectorAll('.services-section h2 img, .sworks-section h2 img');
+    wheels.forEach(wheel => {
+        if (wheel) {
+            const scrollAmount = window.scrollY;
+            wheel.style.transform = `rotate(${scrollAmount * 1.5}deg)`;
+        }
+    });
 }, { passive: true });
 
 // Fallback play button for mobile
@@ -239,23 +246,31 @@ function animateHeading() {
     }
 }
 
-// Animate buttons pop-in effect
-function animateServiceButtons() {
-    const buttons = document.querySelectorAll('.services-list button');
-    if (buttons.length === 0 || buttons[0].classList.contains('animated')) return;
+// ========== CARDS ANIMATION ON VIEWPORT ==========
 
-    buttons.forEach((button, index) => {
-        if (button.style.visibility !== 'hidden') {
-            button.classList.add('animated');
-            button.style.opacity = '0';
-            button.style.transform = 'scale(0.5)';
-            button.style.animation = `popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards`;
-            button.style.animationDelay = `${index * 0.1}s`;
-        }
+function animateCards() {
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+        card.classList.add('animate');
     });
 }
 
-// Intersection Observer for services section
+// Intersection Observer for cards - triggers when 50% of services section is visible
+const cardsObserverOptions = {
+    threshold: 0.5,
+    rootMargin: '0px'
+};
+
+const cardsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            animateCards();
+            cardsObserver.unobserve(entry.target);
+        }
+    });
+}, cardsObserverOptions);
+
+// Intersection Observer for services section heading
 const servicesObserverOptions = {
     threshold: 0.3,
     rootMargin: '0px'
@@ -265,7 +280,6 @@ const servicesObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             animateHeading();
-            animateServiceButtons();
             servicesObserver.unobserve(entry.target);
         }
     });
@@ -275,6 +289,108 @@ document.addEventListener('DOMContentLoaded', () => {
     const servicesSection = document.querySelector('.services-section');
     if (servicesSection) {
         servicesObserver.observe(servicesSection);
+        // Observe the services section for cards animation
+        cardsObserver.observe(servicesSection);
+    }
+});
+
+// ========== SELECTED WORKS SECTION ANIMATIONS ==========
+
+// Animate Selected Works h2 heading letter by letter
+function animateSelectedWorksHeading() {
+    const heading = document.querySelector('.sworks-section h2');
+    if (!heading || heading.classList.contains('animated')) return;
+
+    // Store the image element and the wrapper spans
+    const img = heading.querySelector('img');
+    const selectedSpan = heading.querySelector('.selected-text');
+    const worksSpan = heading.querySelector('.works-text');
+    
+    if (!selectedSpan || !worksSpan) return; // Safety check
+    
+    // Get the text content from each span
+    const selectedText = selectedSpan.textContent.trim();
+    const worksText = worksSpan.textContent.trim();
+    
+    // Clear the heading
+    heading.innerHTML = '';
+    heading.classList.add('animated');
+    
+    // Create new wrapper for SELECTED line
+    const selectedWrapper = document.createElement('span');
+    selectedWrapper.className = 'selected-text';
+    selectedWrapper.style.display = 'block';
+    
+    // Animate SELECTED letters
+    selectedText.split('').forEach((letter, index) => {
+        const span = document.createElement('span');
+        span.textContent = letter;
+        span.style.opacity = '0';
+        span.style.display = 'inline-block';
+        span.style.animation = `fadeInLetter 0.1s ease forwards`;
+        span.style.animationDelay = `${index * 0.05}s`;
+        selectedWrapper.appendChild(span);
+    });
+    
+    heading.appendChild(selectedWrapper);
+    heading.appendChild(document.createElement('br'));
+    
+    // Create new wrapper for WORKS line
+    const worksWrapper = document.createElement('span');
+    worksWrapper.className = 'works-text';
+    worksWrapper.style.display = 'inline-block';
+    
+    // Animate WORKS letters
+    worksText.split('').forEach((letter, index) => {
+        const span = document.createElement('span');
+        span.textContent = letter;
+        span.style.opacity = '0';
+        span.style.display = 'inline-block';
+        span.style.animation = `fadeInLetter 0.1s ease forwards`;
+        const totalIndex = selectedText.length + index;
+        span.style.animationDelay = `${totalIndex * 0.05}s`;
+        worksWrapper.appendChild(span);
+    });
+    
+    heading.appendChild(worksWrapper);
+    
+    // Re-add the image with animation
+    if (img) {
+        img.style.opacity = '0';
+        img.style.animation = `fadeInImage 0.4s ease forwards`;
+        const totalLetters = selectedText.length + worksText.length;
+        img.style.animationDelay = `${totalLetters * 0.05 + 0.1}s`;
+        heading.appendChild(img);
+        
+        // Remove animation styles after animation completes
+        const delay = (totalLetters * 0.05 + 0.1) * 1000;
+        const duration = 400;
+        setTimeout(() => {
+            img.style.animation = 'none';
+            img.style.opacity = '1';
+        }, delay + duration + 50);
+    }
+}
+
+// Intersection Observer for selected works section
+const sworksObserverOptions = {
+    threshold: 0.3,
+    rootMargin: '0px'
+};
+
+const sworksObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            animateSelectedWorksHeading();
+            sworksObserver.unobserve(entry.target);
+        }
+    });
+}, sworksObserverOptions);
+
+document.addEventListener('DOMContentLoaded', () => {
+    const sworksSection = document.querySelector('.sworks-section');
+    if (sworksSection) {
+        sworksObserver.observe(sworksSection);
     }
 });
 
@@ -282,7 +398,22 @@ document.addEventListener('DOMContentLoaded', () => {
 const scrollBtn = document.getElementById('scrollBtn');
 if (scrollBtn) {
     scrollBtn.addEventListener('click', () => {
-        const projectTable = document.getElementById('intro-section');
+        const introSection = document.getElementById('intro-section');
+        if (introSection) {
+            introSection.scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+}
+
+// Scroll to selected works
+const projectLink = document.querySelector('a[href="#sworks-section"]');
+if (projectLink) {
+    projectLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        const projectTable = document.getElementById('sworks-section');
         if (projectTable) {
             projectTable.scrollIntoView({ 
                 behavior: 'smooth',
@@ -292,97 +423,14 @@ if (scrollBtn) {
     });
 }
 
-// ========== EVASIVE BUTTON MOVEMENT ==========
-function setupEvasiveButtons() {
-    const buttons = document.querySelectorAll('.services-list button');
-    
-    buttons.forEach(button => {
-        // Clear animation styles that might be interfering
-        button.style.animation = 'none';
-        button.style.opacity = '1';
-        button.style.transform = 'scale(1)';
-        button.style.transition = 'transform 0.2s ease-out';
-        
-        const maxMove = 130;
-        const triggerDistance = 140;
-        let lastX = 0;
-        let lastY = 0;
-
-        function moveButtonAway(event) {
-            const rect = button.getBoundingClientRect();
-            const buttonCenterX = rect.left + rect.width / 2;
-            const buttonCenterY = rect.top + rect.height / 2;
-            const mouseX = event.clientX;
-            const mouseY = event.clientY;
-
-            const dx = mouseX - buttonCenterX;
-            const dy = mouseY - buttonCenterY;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-
-            let newX = 0;
-            let newY = 0;
-
-            if (distance < triggerDistance) {
-                const angle = Math.atan2(dy, dx);
-                const strength = 1 - distance / triggerDistance;
-                newX = -Math.cos(angle) * maxMove * strength;
-                newY = -Math.sin(angle) * maxMove * strength;
-            }
-
-            // Only update if movement is significant (reduce jitter)
-            if (Math.abs(newX - lastX) > 2 || Math.abs(newY - lastY) > 2) {
-                button.style.transform = `translate(${newX}px, ${newY}px)`;
-                lastX = newX;
-                lastY = newY;
-            }
-        }
-
-        document.addEventListener('mousemove', moveButtonAway, { passive: true });
-
-        button.addEventListener('mouseleave', () => {
-            button.style.transform = 'translate(0, 0)';
-            lastX = 0;
-            lastY = 0;
-        });
-    });
-}
-
-// Call this after services animations are done
-document.addEventListener('DOMContentLoaded', () => {
-    const servicesSection = document.querySelector('.services-section');
-    if (servicesSection) {
-        // Observe services section - wait until it's fully in viewport before triggering animations
-        const tempObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Trigger animations when fully visible
-                    animateHeading();
-                    animateServiceButtons();
-                    
-                    // Wait for animations to complete before setting up hover
-                    setTimeout(() => {
-                        setupEvasiveButtons();
-                    }, 1000);
-                    tempObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 1 }); // Changed from 0.3 to 1 - waits for entire section to be visible
-        
-        tempObserver.observe(servicesSection);
-    }
-});
-
-// Remove the old servicesObserver that was auto-triggering animations
-// The animations are now called above when threshold is 1 (fully visible)
-
-// Scroll to selected works
-const projectLink = document.querySelector('a[href="#project-table"]');
-if (projectLink) {
-    projectLink.addEventListener('click', function(e) {
+// Smooth scroll for about me link
+const aboutLink = document.querySelector('a[href="#about-section"]');
+if (aboutLink) {
+    aboutLink.addEventListener('click', function(e) {
         e.preventDefault();
-        const projectTable = document.getElementById('project-table');
-        if (projectTable) {
-            projectTable.scrollIntoView({ 
+        const aboutSection = document.getElementById('about-section');
+        if (aboutSection) {
+            aboutSection.scrollIntoView({ 
                 behavior: 'smooth',
                 block: 'start'
             });
@@ -413,3 +461,95 @@ document.querySelectorAll('.project-row').forEach((row) => {
         }
     });
 });
+
+// Intersection Observer for about section animation
+const aboutObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            aboutObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.5, rootMargin: '0px' });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const aboutSection = document.querySelector('.about-section');
+    if (aboutSection) {
+        aboutObserver.observe(aboutSection);
+    }
+});
+
+// PDF Overlay Logic
+const curriculumBtn = document.querySelector('.curriculum-btn');
+const philosophyBtn = document.querySelector('.philosophy-btn');
+const pdfOverlay = document.createElement('div');
+pdfOverlay.className = 'pdf-overlay';
+document.body.appendChild(pdfOverlay);
+
+if (curriculumBtn) {
+    curriculumBtn.addEventListener('click', () => {
+        pdfOverlay.innerHTML = `
+            <div class="pdf-container">
+                <button class="close-btn">X</button>
+                <button class="download-btn">⬇</button>
+                <iframe class="pdf-content" src="MarianaAnastacio_CV.pdf#toolbar=0&navpanes=0&scrollbar=0"></iframe>
+            </div>
+        `;
+        pdfOverlay.classList.add('active');
+
+        const closeBtn = pdfOverlay.querySelector('.close-btn');
+        const downloadBtn = pdfOverlay.querySelector('.download-btn');
+        closeBtn.addEventListener('click', () => {
+            pdfOverlay.classList.remove('active');
+        });
+        downloadBtn.addEventListener('click', () => {
+            const link = document.createElement('a');
+            link.href = 'MarianaAnastacio_CV.pdf';
+            link.download = 'MarianaAnastacio_CV.pdf';
+            link.click();
+        });
+    });
+}
+
+// ========== CONTACT SECTION ANIMATIONS ==========
+// Animate contact h2 heading letter by letter
+function animateContactHeading() {
+    const heading = document.querySelector('.contact-section h2');
+    if (!heading || heading.classList.contains('animated')) return;
+
+    // Get text content
+    const text = heading.textContent.trim();
+    
+    // Clear the heading
+    heading.innerHTML = '';
+    heading.classList.add('animated');
+    
+    // Create spans for each letter (including spaces)
+    text.split('').forEach((letter, index) => {
+        const span = document.createElement('span');
+        span.textContent = letter;
+        span.style.opacity = '0';
+        span.style.display = 'inline-block';
+        span.style.animation = `fadeInLetter 0.1s ease forwards`;
+        span.style.animationDelay = `${index * 0.05}s`;
+        heading.appendChild(span);
+    });
+}
+
+// Intersection Observer for scroll-triggered animation
+const contactObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            animateContactHeading();
+            contactObserver.unobserve(entry.target);
+        }
+    });
+}, {
+    threshold: 0.3
+});
+
+// Observe the contact section
+const contactSection = document.querySelector('.contact-section');
+if (contactSection) {
+    contactObserver.observe(contactSection);
+}
